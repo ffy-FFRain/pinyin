@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+</head>
+<style>
+  input {
+    border: 1px solid #ccc;
+    padding: 7px 0px;
+    border-radius: 3px;
+    padding-left: 5px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
+  }
+
+  input:focus {
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6)
+  }
+</style>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript" src="ChinesePY.js"></script>
+<script>
+  function reverses(str) {
+    var arr3 = []
+    let wyl = []
+    arr3 = str.split(' ')
+    for (let i = 0; i < arr3.length; i++) {
+      wyl = wyl.concat(arr3[i].split("").reverse().join(""))
+    }
+    return wyl
+  }
+  function pinyinReverses(str) {
+    var arr = str.split('，')
+    var rs = ''
+
+    if (arr.length > 1) {
+      for(var i = 0;i<arr.length;i++){
+        if(i != arr.length-1){
+          rs = rs + Pinyin.GetQP(arr[i])
+          rs = rs + ','
+        }else{
+          rs = rs + Pinyin.GetQP(arr[i])
+        }
+    }
+    } else {
+      rs = Pinyin.GetQP(str)
+    }
+    return reverses(rs)
+  }
+</script>
+
+<body style="font-size:12px">
+  <form>
+    输入内容： <input type="text" onkeyup="allpym.innerHTML=pinyinReverses(this.value);" /> <br /><br />
+    拼音倒序： <span id="allpym"></span><br /><br />
+  </form>
+</body>
+
+</html>
